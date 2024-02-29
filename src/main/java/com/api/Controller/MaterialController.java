@@ -1,8 +1,8 @@
 package com.api.Controller;
 
-import com.api.model.Entity.Cliente;
+import com.api.model.Entity.Material;
 import com.api.model.payload.MensajesResponse;
-import com.api.service.ICliente;
+import com.api.service.IMaterial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class ClienteController {
     @Autowired
-    private ICliente Clienteservicio;
-    @GetMapping("Materiales")
+    private IMaterial Clienteservicio;
+    @GetMapping("/Materiales")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<MensajesResponse> showAll() {
         try {
-            List<Cliente> userList = Clienteservicio.listall();
+            List<Material> userList = Clienteservicio.listall();
 
             if (userList.isEmpty()) {
                 return new ResponseEntity<>(MensajesResponse.builder()
@@ -40,11 +40,11 @@ public class ClienteController {
                     .build(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PutMapping("Cliente")
+    @PutMapping("/actualizarCliente")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<MensajesResponse> update(@RequestBody Cliente cliente) {
+    public ResponseEntity<MensajesResponse> update(@RequestBody Material material) {
         try {
-            Cliente materialActualizado = Clienteservicio.save(cliente);
+            Material materialActualizado = Clienteservicio.save(material);
             return new ResponseEntity<>(MensajesResponse.builder()
                     .mensaje("El material se actualizó correctamente")
                     .objeto(materialActualizado)
@@ -56,11 +56,11 @@ public class ClienteController {
                     .build(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PostMapping("Cliente")
+    @PostMapping("/nuevoMaterial")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<MensajesResponse> create(@RequestBody Cliente cliente) {
+    public ResponseEntity<MensajesResponse> create(@RequestBody Material material) {
         try {
-            Cliente nuevoMaterial = Clienteservicio.save(cliente);
+            Material nuevoMaterial = Clienteservicio.save(material);
             return new ResponseEntity<>(MensajesResponse.builder()
                     .mensaje("Material ingresado correctamente")
                     .objeto(nuevoMaterial)
@@ -72,14 +72,14 @@ public class ClienteController {
                     .build(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @DeleteMapping("Cliente/{id}")
+    @DeleteMapping("eliminarMaterial/{id}")
     public ResponseEntity<MensajesResponse> delete(@PathVariable Integer id) {
         try {
-            Cliente clienteDelete = Clienteservicio.findById(id);
-            Clienteservicio.delete(clienteDelete);
+            Material materialDelete = Clienteservicio.findById(id);
+            Clienteservicio.delete(materialDelete);
             return new ResponseEntity<>(MensajesResponse.builder()
                     .mensaje("Material eliminado exitosamente")
-                    .objeto(clienteDelete)
+                    .objeto(materialDelete)
                     .build(), HttpStatus.NO_CONTENT);
         } catch (DataAccessException exDt) {
             return new ResponseEntity<>(MensajesResponse.builder()
@@ -88,14 +88,14 @@ public class ClienteController {
                     .build(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("Cliente/{id}")
+    @GetMapping("/consultaMaterial/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<MensajesResponse> showById(@PathVariable Integer id) {
         try {
-            Cliente cliente = Clienteservicio.findById(id);
+            Material material = Clienteservicio.findById(id);
             return new ResponseEntity<>(MensajesResponse.builder()
                     .mensaje("Material obtenido exitosamente")
-                    .objeto(cliente)
+                    .objeto(material)
                     .build(), HttpStatus.OK);
         } catch (DataAccessException ex) {
             return new ResponseEntity<>(MensajesResponse.builder()

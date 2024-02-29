@@ -1,7 +1,7 @@
 package com.api.service.impl;
 
-import com.api.model.Entity.Cliente;
-import com.api.model.dao.Clientedao;
+import com.api.model.Entity.Material;
+import com.api.model.dao.Materialdao;
 import com.api.service.ICliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,29 +13,32 @@ import java.util.List;
 public class ClienteImpl implements ICliente {
 
     @Autowired
-    private Clientedao clientedao;
+    private Materialdao clientedao;
 
+    @Transactional
     @Override
-    public List<Cliente> listall() {
+    public List<Material> listall() {
         return (List) clientedao.findAll();
     }
 
 
+    @Transactional
     @Override
-    public Cliente save(Cliente cliente) {
-        return clientedao.save(cliente);
+    public Material save(Material material) {
+        return clientedao.save(material);
     }
 
 
+    @Transactional
     @Override
-    public Cliente findById(Integer id) {
+    public Material findById(Integer id) {
         return clientedao.findById(id).orElse(null);
     }
 
     @Transactional
     @Override
-    public void delete(Cliente cliente) {
-        clientedao.delete(cliente);
+    public void delete(Material material) {
+        clientedao.delete(material);
 
     }
 }

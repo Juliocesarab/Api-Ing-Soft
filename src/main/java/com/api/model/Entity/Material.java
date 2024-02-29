@@ -11,20 +11,20 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table (name = "ingreso_de_material")
-public class Cliente  {
+@Table (name = "material_en_sistema")
+public class Material {
 
     @Id
     @Column(name = "id_ingreso")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer IdIngreso;
-    @Column(name = "Material")
-    private String  Material;
-    @Column(name = "Cantidad")
-    private Float Cantidad;
-    @Column(name = "Departamento")
-    private String Departamento;
-    @Column(name = "Obra")
-    private String Obra;
+    private Integer idIngreso;
+    @Column(name = "material")
+    private String  material;
+    @Column(name = "cantidad")
+    private Float cantidad;
+    @Column(name = "departamento")
+    private String departamento;
+    @Column(name = "obra")
+    private String obra;
 
 }
